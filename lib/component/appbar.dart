@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_page/color.dart';
 import 'package:portfolio_page/model/page.dart';
 import 'package:portfolio_page/notifier/page_change_notifier.dart';
 import 'package:portfolio_page/routes.dart';
@@ -11,8 +12,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      foregroundColor: Colors.white,
+      backgroundColor: AppColors.darkPurple,
       title: Consumer<PageChangeNotifier>(
         builder: (context, value, child) {
           return Row(
@@ -58,14 +58,12 @@ class _NavItem extends StatelessWidget {
         },
         child: Text(
           pageModel.title,
-          style: TextStyle(
-            fontSize: 18,
-            color: isSelected
-                ? Theme.of(context).colorScheme.secondary
-                : Colors.grey,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            letterSpacing: 2,
-          ),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontSize: 18,
+                color: isSelected ? AppColors.accentColor : AppColors.color2,
+                fontWeight: isSelected ? FontWeight.w900 : FontWeight.normal,
+                letterSpacing: 2,
+              ),
         ),
       ),
     );

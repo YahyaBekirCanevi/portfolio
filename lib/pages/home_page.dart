@@ -8,149 +8,188 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.sizeOf(context);
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: screenSize.height * .9,
-            width: screenSize.width,
-            child: Center(
-              child: SizedBox(
-                height: screenSize.height * .6,
-                width: screenSize.width * .8,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 60, bottom: 40),
-                      child: Text(
-                        'Hi, I\'m Yahya Bekir Canevi',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineLarge
-                            ?.copyWith(color: AppColors.textColor),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        'I am a software engineer specializing in building high-quality applications. Here are some of my projects.',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(color: AppColors.textColor),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: AppColors.brightYellow,
-                                borderRadius: BorderRadius.circular(24),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'Get A Quote',
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall
-                                          ?.copyWith(
-                                            color: AppColors.darkPurpleShade,
-                                            fontSize: 16,
-                                          ),
-                                    ),
-                                    const SizedBox(width: 16),
-                                    const Icon(
-                                      Icons.arrow_forward,
-                                      color: AppColors.darkPurpleShade,
-                                    ),
-                                  ],
+          AboutMeComponent(),
+          ProjectSliderComponent(),
+          GetInTouchComponent(),
+        ],
+      ),
+    );
+  }
+}
+
+class AboutMeComponent extends StatelessWidget {
+  const AboutMeComponent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.sizeOf(context);
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: AppColors.color2,
+      ),
+      child: SizedBox(
+        height: screenSize.height * .6,
+        width: screenSize.width,
+        child: Center(
+          child: SizedBox(
+            height: screenSize.height * .4,
+            width: screenSize.width * .8,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 60, bottom: 8),
+                  child: Row(
+                    mainAxisAlignment: screenSize.width < 600
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Hi, I\'m ',
+                        textAlign: TextAlign.center,
+                        style:
+                            Theme.of(context).textTheme.displayLarge?.copyWith(
+                                  color: AppColors.brightYellowShade,
+                                  fontSize: 54,
                                 ),
-                              ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Text(
+                    'Yahya Bekir Canevi',
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                          color: AppColors.textColor,
+                          fontSize: 54,
+                        ),
+                  ),
+                ),
+                Text(
+                  'I am a software engineer specializing in building high-quality applications. Here are some of my projects.',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: AppColors.color3),
+                ),
+                Expanded(
+                  child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: AppColors.brightYellow,
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                Text(
+                                  'Get A Quote',
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(
+                                        color: AppColors.darkPurpleShade,
+                                        fontSize: 16,
+                                      ),
+                                ),
+                                const SizedBox(width: 16),
+                                const Icon(
+                                  Icons.arrow_forward,
+                                  color: AppColors.darkPurpleShade,
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 40),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          const ProjectSliderComponent(),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 50),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Get In Touch",
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              color: AppColors.brightYellowShade,
-                              fontSize: 24,
-                              decoration: TextDecoration.underline,
-                              decorationColor: AppColors.brightYellowShade,
-                            ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 30,
-                        ),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 12),
-                            Text(
-                              "Linkedin & Github",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(
-                                    color: Colors.grey,
-                                    fontSize: 18,
-                                  ),
-                            ),
-                            const SizedBox(height: 24),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Text(
-                        "Let Me Know",
-                        style:
-                            Theme.of(context).textTheme.displaySmall?.copyWith(
-                                  color: AppColors.brightYellowShade,
-                                  fontSize: 24,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: AppColors.brightYellowShade,
-                                ),
-                      ),
-                      const _ContactField(),
-                    ],
-                  ),
+                      )),
                 ),
               ],
             ),
           ),
-        ],
+        ),
+      ),
+    );
+  }
+}
+
+class GetInTouchComponent extends StatelessWidget {
+  const GetInTouchComponent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: AppColors.color5,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 50),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  Text(
+                    "Get In Touch",
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: AppColors.lightPurple,
+                          fontSize: 24,
+                          decoration: TextDecoration.underline,
+                          decorationColor: AppColors.lightPurple,
+                        ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 30,
+                    ),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 12),
+                        Text(
+                          "Linkedin & Github",
+                          style:
+                              Theme.of(context).textTheme.titleLarge?.copyWith(
+                                    color: Colors.grey,
+                                    fontSize: 18,
+                                  ),
+                        ),
+                        const SizedBox(height: 24),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Text(
+                    "Let Me Know",
+                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                          color: AppColors.lightPurple,
+                          fontSize: 24,
+                          decoration: TextDecoration.underline,
+                          decorationColor: AppColors.lightPurple,
+                        ),
+                  ),
+                  const _ContactField(),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -171,42 +210,32 @@ class _ContactField extends HookWidget {
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 60),
         child: SizedBox(
           width: screenSize.width * .8,
-          child: Theme(
-            data: ThemeData(
-              useMaterial3: true,
-              colorScheme:
-                  ColorScheme.fromSeed(seedColor: AppColors.textColor).copyWith(
-                secondary: AppColors.textColor,
-                surface: AppColors.textColor,
-                primary: AppColors.textColor,
+          child: Column(
+            children: [
+              const SizedBox(height: 24),
+              TextField(
+                controller: emailController,
+                decoration: const InputDecoration(hintText: 'E-Mail'),
               ),
-            ),
-            child: Column(
-              children: [
-                const SizedBox(height: 24),
-                _DecoratedTextInput(
-                  label: 'E-Mail',
-                  emailController: emailController,
-                ),
-                const SizedBox(height: 12),
-                _DecoratedTextInput(
-                  label: 'Name Surname',
-                  emailController: nameController,
-                ),
-                const SizedBox(height: 12),
-                _DecoratedTextInput(
-                  label: 'Message',
-                  minLines: 5,
-                  emailController: messageController,
-                ),
-                const SizedBox(height: 12),
-                SizedBox(
-                  width: double.maxFinite,
-                  child: buildConttractMeMethod(context),
-                ),
-                const SizedBox(height: 24),
-              ],
-            ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(hintText: 'Name Surname'),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                minLines: 5,
+                maxLines: 5,
+                controller: messageController,
+                decoration: const InputDecoration(hintText: 'Message'),
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.maxFinite,
+                child: buildConttractMeMethod(context),
+              ),
+              const SizedBox(height: 24),
+            ],
           ),
         ),
       ),
@@ -231,47 +260,6 @@ class _ContactField extends HookWidget {
                 .titleSmall
                 ?.copyWith(color: AppColors.darkPurpleShade, fontSize: 18),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _DecoratedTextInput extends StatelessWidget {
-  const _DecoratedTextInput({
-    this.minLines = 1,
-    required this.label,
-    required this.emailController,
-  });
-
-  final int? minLines;
-  final String label;
-  final TextEditingController emailController;
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Colors.grey,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-        child: TextField(
-          controller: emailController,
-          decoration: InputDecoration(
-            fillColor: AppColors.textColor,
-            focusColor: AppColors.textColor,
-            border: null,
-            labelText: label,
-          ),
-          minLines: minLines,
-          maxLines: minLines,
-          cursorColor: AppColors.textColor,
-          style: Theme.of(context)
-              .textTheme
-              .labelLarge
-              ?.copyWith(color: AppColors.textColor),
         ),
       ),
     );

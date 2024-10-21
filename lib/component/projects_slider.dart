@@ -1,10 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:portfolio_page/color.dart';
 import 'package:portfolio_page/component/durations.dart';
 import 'package:portfolio_page/launch_url.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
-import 'dart:async';
 
 class SliderProvider with ChangeNotifier {
   int _currentIndex = 0;
@@ -19,6 +20,7 @@ class SliderProvider with ChangeNotifier {
 
   void nextItem(int itemCount) {
     _currentIndex = (_currentIndex + 1) % itemCount;
+    animateToPage();
     notifyListeners();
   }
 
@@ -41,13 +43,14 @@ class SliderProvider with ChangeNotifier {
       _pageController.animateToPage(
         _currentIndex,
         duration: 500.ms,
-        curve: Curves.easeInOut,
+        curve: Curves.ease,
       );
     });
   }
 
   void stopTimer() {
     _timer?.cancel();
+    _timer = null;
   }
 
   Future<void> animateToPage() async {
@@ -75,7 +78,7 @@ class ProjectSliderComponent extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => SliderProvider(),
       child: ColoredBox(
-        color: AppColors.darkPurpleShade,
+        color: AppColors.color1,
         child: Consumer<SliderProvider>(
           builder: (context, sliderProvider, child) {
             return Column(
@@ -86,11 +89,11 @@ class ProjectSliderComponent extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          'Projects',
+                          'Projects'.toUpperCase(),
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium
-                              ?.copyWith(color: AppColors.textColor),
+                              ?.copyWith(color: AppColors.lightPurple),
                         ),
                       ),
                       IconButton(
@@ -149,14 +152,14 @@ class _ProjectSlider extends HookWidget {
         controller: sliderProvider.pageController,
         physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        onPageChanged: (index) => sliderProvider.updateIndex(index),
+        //onPageChanged: (index) => sliderProvider.updateIndex(index),
         itemCount: projects.length,
         itemBuilder: (context, index) {
           final project = projects[index];
           final isCenter = index == currentIndex;
 
           return AnimatedOpacity(
-            duration: 500.ms,
+            duration: 100.ms,
             opacity: isCenter ? 1.0 : 0.5,
             child: ProjectSliderItem(
               project: project,
@@ -180,26 +183,17 @@ class ProjectSliderItem extends StatelessWidget {
         launchURL(project['github']);
       },
       child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        color: Colors.white,
-        child: Container(
-          width: MediaQuery.of(context).size.width * .6,
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                project['title']!,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              project['title']!,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

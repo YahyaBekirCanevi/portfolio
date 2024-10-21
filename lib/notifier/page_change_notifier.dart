@@ -23,8 +23,8 @@ class PageChangeNotifier extends ChangeNotifier {
 
   void navigateToPage(PageModel page) {
     _page = page;
-    animatePage();
     notifyListeners();
+    animatePage();
   }
 
   void animatePage() {
